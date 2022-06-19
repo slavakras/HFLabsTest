@@ -67,7 +67,7 @@ public class FileUtils {
             header = fileHeaders.get(0);
             Pattern pattern = Pattern.compile(".*\\.XML$");
             if(!pattern.matcher(header.getFileName()).matches()) {
-                throw new RuntimeException("В архиве не xml файл");
+                throw new RuntimeException("В архиве не xml файла");
             }
             unzipped = File.createTempFile(UUID.randomUUID().toString(), extension);
         } catch (ZipException e) {

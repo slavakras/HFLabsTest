@@ -14,7 +14,7 @@ public class HfLabsTestApplication {
 
     public static void main(String[] args) {
         Map<String, HashMap<String, Integer>> product = new HashMap<>();
-        //Собираем данные
+
         String xmlURL = ParseUtils.parseFNSPage();
         File zippedXML = FileUtils.downloadFile(xmlURL, ".zip");
         File unZippedXML = FileUtils.unZip(zippedXML, ".xml");
@@ -22,6 +22,10 @@ public class HfLabsTestApplication {
         zippedXML.delete();
         unZippedXML.delete();
 
+        //Аналогично, код в рамках тестового,
+        //в продуктиве было бы логичнее сделать свою структуру данных на базе мапы,
+        //перегонять Nodelist элементов в нее и выбирать уже не по индексу, а по значению.
+        //В рамках тестового было бы долго ее проектировать.
         for (int i = 0; i < elements.getLength(); i++) {
            String country = elements.item(i).getChildNodes().item(0)
                    .getChildNodes().item(0).getChildNodes().item(1)

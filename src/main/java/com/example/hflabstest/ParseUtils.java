@@ -26,6 +26,10 @@ public class ParseUtils {
             System.out.println("Не удалось открыть страницу ФНС, проверьте подключение и правильность ссылки");
             throw new RuntimeException(e);
         }
+        //Не лучший метод для продуктива, исключительно в рамках тестового:
+        // Мало опознавательных знаков для адекватного читаемого парсинга.
+        // для продуктивного применения нужно как минимум строить логические обвязки
+        // на изменение структуры страницы программистами налоговой :)
         xmlURL = nalogPage.getElementsByClass("border_table")
                 .select("tr").get(8)
                 .select("td").get(2)
@@ -37,6 +41,8 @@ public class ParseUtils {
         return xmlURL;
     }
 
+    //Также возможно реализовать это через JAXB и пререндерить классы на основании xsd,
+    // но не исследовал что будет с потреблением памяти в этом случае
     public static NodeList parseXML (File file) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(false);
