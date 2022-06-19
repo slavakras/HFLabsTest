@@ -43,15 +43,18 @@ public class FileUtils {
         } catch (IOException e) {
             System.out.println("Временный файл не создан");
             throw new RuntimeException(e);
+        } finally {
+            try {
+                inputStream.close();
+                outputStream.close();
+            } catch (IOException e) {
+                System.out.println("Потоки остались висеть");
+                throw new RuntimeException(e);
+            } finally {
+                return file;
+            }
         }
-        try {
-            inputStream.close();
-            outputStream.close();
-        } catch (IOException e) {
-            System.out.println("Потоки остались висеть");
-            throw new RuntimeException(e);
-        }
-        return file;
+
     }
 
     public static File unZip (File file, String extension) {
@@ -83,15 +86,18 @@ public class FileUtils {
         } catch (IOException e) {
             System.out.println("Не удалось распаковать файл");
             throw new RuntimeException(e);
+        } finally {
+            try {
+                zis.close();
+                out.close();
+            } catch (IOException e) {
+                System.out.println("Потоки остались висеть");
+                throw new RuntimeException(e);
+            } finally {
+                return unzipped;
+            }
         }
-        try {
-            zis.close();
-            out.close();
-        } catch (IOException e) {
-            System.out.println("Потоки остались висеть");
-            throw new RuntimeException(e);
-        }
-        return unzipped;
+
     }
 
     public static void writeCSV(Map<String, HashMap<String, Integer>> product) {
